@@ -10,6 +10,7 @@ namespace Major_Project.models
         [MaxLength(6)]
         [MinLength(6)]
         public int Id { get; set; }
+        public List<Item> items { get; set; }
         public List<Score> Scores { get; set; }
 
     }

@@ -22,6 +22,7 @@ body {
 }
 h1 {
     color: rgb(178, 133, 55);
+    font-size:40px;
 }
 text {
     margin-bottom: 1em;
@@ -29,18 +30,33 @@ text {
     margin-left: 1em;
     margin-right: 0.5em;
 }
-.username{
+.sign{
     margin-bottom: 1em;
+    font-size:20px;
+    background-color: gray;
+    color: #482600;
+    margin-left: 1em;
+    margin-right: 0.5em;
+}
+.username{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size:20px;
     color: #482600;
     margin-left: 1em;
     margin-right: 0.5em;
 }
 .password{
     margin-bottom: 1em;
+    font-size:20px;
     color: #482600;
     margin-left: 1em;
     margin-right: 0.5em;
 }
 span{
     color: red;
+}
+.SError{
+    font-size: 20px;
+    margin-bottom: 1em;  
 }

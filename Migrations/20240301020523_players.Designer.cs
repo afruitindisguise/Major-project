@@ -12,7 +12,7 @@ namespace Major_project.Migrations
 {
     [DbContext(typeof(PlayerDbContext))]
     [Migration("20240301020523_Player")]
-    partial class Player
+    partial class players
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

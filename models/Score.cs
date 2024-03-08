@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Final_Project.models{
+namespace Major_Project.models{
     public class Score{
         public int ScoreAmount { get; set; }
         [MaxLength(6)]

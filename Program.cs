@@ -2,6 +2,8 @@ using Major_Project.repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -11,9 +13,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<PlayerDbContext>();
 
 
+builder.Services.AddCors(options =>{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy  =>
+                      {
+                          policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -25,5 +34,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.Run();
