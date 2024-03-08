@@ -5,7 +5,7 @@
 namespace Major_project.Migrations
 {
     /// <inheritdoc />
-    public partial class Player : Migration
+    public partial class players : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

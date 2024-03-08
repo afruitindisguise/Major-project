@@ -134,3 +134,4 @@ C:\Users\struasn\Documents\.NET\Major project\obj\Debug\net8.0\refint\Major proj
 C:\Users\struasn\Documents\.NET\Major project\obj\Debug\net8.0\Major project.pdb
 C:\Users\struasn\Documents\.NET\Major project\obj\Debug\net8.0\Major project.genruntimeconfig.cache
 C:\Users\struasn\Documents\.NET\Major project\obj\Debug\net8.0\ref\Major project.dll
+C:\Users\struasn\Documents\.NET\Major project\obj\Debug\net8.0\Major project.sourcelink.json

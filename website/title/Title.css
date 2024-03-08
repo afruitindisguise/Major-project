@@ -21,10 +21,14 @@ body {
     color: rgb(178, 133, 55);
 }
 h1 {
-    color: rgb(178, 133, 55);
+    font-size:50px;
+}
+h2{
+    font-size:40px;
 }
 button {
     margin-bottom: 1em;
+    font-size:20px;
     background-color: gray;
     color: #482600;
     margin-left: 1em;
@@ -32,6 +36,7 @@ button {
 }
 .create{
     margin-bottom: 1em;
+    font-size:20px;
     background-color: gray;
     color: #482600;
     margin-left: 1em;
