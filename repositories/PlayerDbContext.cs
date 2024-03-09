@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Major_Project.models;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Major_Project.repositories
