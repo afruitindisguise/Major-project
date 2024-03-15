@@ -11,6 +11,7 @@ namespace Major_Project.repositories
         public DbSet<Player> Players { get; set; }
         public DbSet<Score> Scores { get; set; }
         public DbSet<Item> Items { get; set; }
+       public DbSet<Data> Datas { get; set; }
         public PlayerDbContext(IConfiguration configuration){
             this._configuration = configuration;
         }

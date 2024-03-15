@@ -12,6 +12,8 @@ namespace Major_Project.models
         public int Id { get; set; }
         public List<Item> items { get; set; }
         public List<Score> Scores { get; set; }
+        public List<Data> Datas { get; set; }
+        public List<Status> Statuses {get; set;}
 
     }
 }

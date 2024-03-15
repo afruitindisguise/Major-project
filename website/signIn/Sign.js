@@ -25,17 +25,19 @@ const SignIn = evt => {
             return;
         }
         // checks if username is in database
+        if (username != "") {
             const fetchPromise = fetch("http://localhost:5132/players/" + username, { method: "GET", mode: "cors", headers: { "Accept": "text/json", "Origin": "sign.html" } });
             fetchPromise.then(response => {
                 if (response.status == 204) {
                     $("#SignIn_error").textContent = "UserName does not exist";
                     U = true;
-                    CEonFail(U,P);
-                    return;
-                } 
+                    CEonFail(U, P);
+                    throw new UserNameNotFoundError("Username does not exist", response.status);
+                }
             })
+        }
         //will work on implementing Passwords later (dont understand how to protect them yet) 
-        if (password == "" && username != "") {
+        if (password == "") {
             $("#SignIn_error").textContent = "password required";
             return;
         }
