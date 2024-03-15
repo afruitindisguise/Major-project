@@ -21,6 +21,5 @@ namespace Major_Project.repositories
             optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
             optionsBuilder.EnableDetailedErrors();
         }
-        
     }
 }

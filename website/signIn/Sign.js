@@ -19,6 +19,7 @@ const SignIn = evt => {
     //series of checks to verify user
     var U = false;
     var P = false;
+    var verified = false;
     try {
         if (username == "") {
             $("#SignIn_error").textContent = "Username is required.";
@@ -32,9 +33,11 @@ const SignIn = evt => {
                     $("#SignIn_error").textContent = "UserName does not exist";
                     U = true;
                     CEonFail(U, P);
-                    throw new UserNameNotFoundError("Username does not exist", response.status);
+                    return;
+                    //throw new UserNameNotFoundError("Username does not exist", response.status);
                 }
             })
+
         }
         //will work on implementing Passwords later (dont understand how to protect them yet) 
         if (password == "") {
@@ -44,11 +47,13 @@ const SignIn = evt => {
         else if (passwordV == "") {
             $("#SignIn_error").textContent = "Please verify password";
             return;
-        }else if (password != passwordV) {
+        } else if (password != passwordV) {
             $("#SignIn_error").textContent = "Passwords must be the same";
             P = true;
-            CEonFail(U,P);
+            CEonFail(U, P);
             return;
+        } else{
+            $("#SignIn_error").textContent = "";
         }
     } catch (error) {
         console.error("There was an issue while processing");
@@ -56,8 +61,7 @@ const SignIn = evt => {
       return;
     }
     finally {
-        if ($("#SignIn_error").value == "") {
-            $("#SignIn_error").textContent = "";
+        if ($("#SignIn_error").textContent == "") {
             alert("Sign In sucessfull");
         };
     }
