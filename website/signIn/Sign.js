@@ -10,63 +10,62 @@ function CEonFail(U, P) {
         $("#Password").focus();
     }
 }
-const SignIn = evt => {
-    // get user entries from text boxes
+async function CheckAll() {
     const password = $("#Password").value;
     const passwordV = $("#PasswordV").value;
     const username = $("#Username").value;
-
-    //series of checks to verify user
     var U = false;
     var P = false;
-    var verified = false;
-    try {
-        if (username == "") {
-            $("#SignIn_error").textContent = "Username is required.";
-            return;
-        }
-        // checks if username is in database
-        if (username != "") {
-            const fetchPromise = fetch("http://localhost:5132/players/" + username, { method: "GET", mode: "cors", headers: { "Accept": "text/json", "Origin": "sign.html" } });
-            fetchPromise.then(response => {
-                if (response.status == 204) {
-                    $("#SignIn_error").textContent = "UserName does not exist";
-                    U = true;
+    if (username == "") {
+        $("#SignIn_error").textContent = "Username is required.";
+        return false;
+    }
+    else {
+        const fetchPromise = fetch("http://localhost:5132/players/" + username, { method: "GET", mode: "cors", headers: { "Accept": "text/json", "Origin": "sign.html" } });
+        fetchPromise.then(response => {
+            if (response.status == 204) {
+                $("#SignIn_error").textContent = "UserName does not exist";
+                U = true;
+                CEonFail(U, P);
+                $("#Password").disabled = true;
+                $("#PasswordV").disabled = true;
+                $("#Sign_In").textContent = "Check Username";
+                return;
+            }if (response.status == 200) {
+                $("#Password").disabled = false;
+                $("#PasswordV").disabled = false;
+                $("#Sign_In").textContent = "Sign In";
+                //will work on implementing Passwords later (dont understand how to protect them yet) 
+                if (password == "") {
+                    $("#SignIn_error").textContent = "password required";
+                    return;
+                    }
+                    else if (passwordV == "") {
+                    $("#SignIn_error").textContent = "Please verify password";
+                    return;
+                    }else if (password != passwordV) {
+                    $("#SignIn_error").textContent = "Passwords must be the same";
+                    P = true;
                     CEonFail(U, P);
                     return;
-                    //throw new UserNameNotFoundError("Username does not exist", response.status);
-                }
-            })
-
-        }
-        //will work on implementing Passwords later (dont understand how to protect them yet) 
-        if (password == "") {
-            $("#SignIn_error").textContent = "password required";
-            return;
-        }
-        else if (passwordV == "") {
-            $("#SignIn_error").textContent = "Please verify password";
-            return;
-        } else if (password != passwordV) {
-            $("#SignIn_error").textContent = "Passwords must be the same";
-            P = true;
-            CEonFail(U, P);
-            return;
-        } else{
-            $("#SignIn_error").textContent = "";
-        }
-    } catch (error) {
-        console.error("There was an issue while processing");
-        $("#SignIn_error").textContent = "There was an issue while processing Sign In";
-      return;
+                    }else{
+                        $("#SignIn_error").textContent = "";
+                        alert("signed in");
+                        return true;
+                        }
+            }
+        })
     }
-    finally {
-        if ($("#SignIn_error").textContent == "") {
-            alert("Sign In sucessfull");
-        };
-    }
+}
+const SignIn = evt => {
+    CheckAll();
 };
     document.addEventListener("DOMContentLoaded", () => {
         $("#Sign_In").addEventListener("click", SignIn);
+        $("#Username").addEventListener("input", (event) => {
+            $("#Password").textContent = "";
+            $("#PasswordV").textContent = "";
+        })
+        oninput = (event) => {}  
         $("#Username").focus();
     });
