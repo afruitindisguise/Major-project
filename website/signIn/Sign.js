@@ -49,10 +49,13 @@ async function CheckAll() {
                     CEonFail(U, P);
                     return;
                     }else{
-                        $("#SignIn_error").textContent = "";
-                        alert("signed in");
-                        return true;
-                        }
+                    $("#SignIn_error").textContent = "";
+                    alert("signed in");
+                    localStorage.setItem("Username", username)
+                    localStorage.setItem("Signed In", "true");
+                    document.location = "menu.html";
+                        return;
+                    }
             }
         })
     }
@@ -60,12 +63,14 @@ async function CheckAll() {
 const SignIn = evt => {
     CheckAll();
 };
-    document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("Signed In") == "true") {
+        document.location = "menu.html";
+    }
         $("#Sign_In").addEventListener("click", SignIn);
-        $("#Username").addEventListener("input", (event) => {
+        $("#Username").addEventListener("input", () => {
             $("#Password").textContent = "";
             $("#PasswordV").textContent = "";
         })
-        oninput = (event) => {}  
         $("#Username").focus();
     });
