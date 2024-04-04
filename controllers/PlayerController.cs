@@ -16,5 +16,10 @@ namespace Major_Project.controllers{
         public Player? GetPlayer(string? username){
             return this._context.Players.Where(player => player.UserName == username).FirstOrDefault();
         }
+        //creats character(wip)
+        //[HttpPost("players/{username}", Name = "CreatePlayer")]
+        //public void CreatePlayer(string? username){
+        //_context.Players.Add(Player => player.UserName == username);
+        // }
     }
 }
