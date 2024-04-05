@@ -37,9 +37,7 @@ async function CheckAll() {
                 $("#Sign_In").textContent = "Sign In";
                 $("#SignIn_error").textContent = "";
                 //will work on implementing Passwords later (considering not)(dont understand how to protect them yet)
-                if ($("#SignIn_error").textContent == ""){
-                    $("#SignIn_error").textContent = "enter your password";
-                }else if (password == "") {
+                    if (password == "") {
                     $("#SignIn_error").textContent = "password required";
                     return;
                     }
