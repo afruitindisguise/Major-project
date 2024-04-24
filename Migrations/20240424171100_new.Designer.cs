@@ -3,6 +3,7 @@ using Major_Project.repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Major_project.Migrations
 {
     [DbContext(typeof(PlayerDbContext))]
-    partial class PlayerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424171100_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,6 +23,21 @@ namespace Major_project.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DataPlayer", b =>
+                {
+                    b.Property<int>("DatasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DatasId", "PlayersId");
+
+                    b.HasIndex("PlayersId");
+
+                    b.ToTable("DataPlayer");
+                });
 
             modelBuilder.Entity("ItemPlayer", b =>
                 {
@@ -91,17 +109,12 @@ namespace Major_project.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DataId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DataId");
 
                     b.ToTable("Players");
                 });
@@ -142,6 +155,21 @@ namespace Major_project.Migrations
                     b.ToTable("PlayerScore");
                 });
 
+            modelBuilder.Entity("DataPlayer", b =>
+                {
+                    b.HasOne("Major_Project.models.Data", null)
+                        .WithMany()
+                        .HasForeignKey("DatasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Major_Project.models.Player", null)
+                        .WithMany()
+                        .HasForeignKey("PlayersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ItemPlayer", b =>
                 {
                     b.HasOne("Major_Project.models.Item", null)
@@ -157,17 +185,6 @@ namespace Major_project.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Major_Project.models.Player", b =>
-                {
-                    b.HasOne("Major_Project.models.Data", "Data")
-                        .WithMany("Players")
-                        .HasForeignKey("DataId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Data");
-                });
-
             modelBuilder.Entity("PlayerScore", b =>
                 {
                     b.HasOne("Major_Project.models.Player", null)
@@ -181,11 +198,6 @@ namespace Major_project.Migrations
                         .HasForeignKey("ScoresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Major_Project.models.Data", b =>
-                {
-                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }
