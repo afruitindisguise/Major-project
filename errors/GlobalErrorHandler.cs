@@ -5,9 +5,9 @@ namespace Major_Project.errors{
     public class GlobalErrorHandler : IExceptionHandler{
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken){
             ErrorDetails errorDetails = new ErrorDetails();
-            if (exception is UserNameNotFoundError){
-                errorDetails.StatusCode = (int)HttpStatusCode.NotFound;
-                errorDetails.Message = "Username not found";
+            if (exception is UserNameExistsError){
+                errorDetails.StatusCode = (int)HttpStatusCode.NotAcceptable;
+                errorDetails.Message = "Username already Exists";
                 errorDetails.ExceptionMessage = exception.Message;
             }else{
                 errorDetails.StatusCode = (int)HttpStatusCode.InternalServerError;
