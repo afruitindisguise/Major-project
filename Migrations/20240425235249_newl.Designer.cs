@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Major_project.Migrations
 {
     [DbContext(typeof(PlayerDbContext))]
-    [Migration("20240424171815_newer")]
-    partial class newer
+    [Migration("20240425235249_newl")]
+    partial class newl
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

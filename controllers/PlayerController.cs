@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Major_Project.models;
 using Microsoft.EntityFrameworkCore;
 using Major_Project.errors;
+using System.Data;
 
 
 
@@ -18,8 +19,12 @@ namespace Major_Project.controllers{
             return this._context.Players.Where(player => player.UserName == username).FirstOrDefault();
         }
         //creats a new user
-        [HttpPost("players", Name = "CreatePlayer")]
+        [HttpPost("players/{username}", Name = "CreatePlayer")]
         public void CreatePlayer(string? username){
+            Player player = new Player
+            {
+                UserName = username,
+            };
             Data data = new Data
             {
                 HP = 100,
@@ -27,16 +32,20 @@ namespace Major_Project.controllers{
                 AR = 0.5,
                 location = 0
             };
-            Player player = new Player
-            {
-                UserName = username,
-                Data = data
+            if(GetPlayer(username)?.UserName == player.UserName){
+                throw new UserNameExistsError("Username already exists");
+            }else{
+                player.Data = data;
+                _context.Players.Add(player);
+                _context.SaveChanges();
             };
-            _context.Players.Add(player);
-            _context.SaveChanges();
         }
-        [HttpDelete("Players/",Name = "DeletePlayer")]
-        public void DeletePlayer(Player user){
+        //deletes a user
+        [HttpDelete("players/{username}",Name = "DeletePlayer")]
+        public void DeletePlayer(string? username){
+            var user = this._context.Players.Where(player => player.UserName == username).FirstOrDefault();
+            var data = this._context.Datas.Where(data => data.Id == user.DataId).FirstOrDefault();
+            _context.Datas.Remove(data);
             _context.Players.Remove(user);
             _context.SaveChanges();
         }
